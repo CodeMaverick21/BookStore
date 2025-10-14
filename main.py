@@ -16,3 +16,12 @@ def read_root():
 @app.get('/books')
 def get_all_books():
     return books
+
+# get retrive single book
+@app.get('/books/{book_id}')
+def get_single_book(book_id : int):
+    # get a specific book by id
+    for book in books:
+        if book["id"] == book_id:
+            return book
+    return {"message" : "Book not found"}
