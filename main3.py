@@ -17,6 +17,7 @@ class Book (BaseModel):
     author : str
     year : int
 
+# Get all books and retrive books by filtering using query parameters
 @app.get("/books")
 def get_books(author: str = None, year: int = None):
     results = books
@@ -26,6 +27,7 @@ def get_books(author: str = None, year: int = None):
         results = [b for b in results if b["year"] == year]
     return results
 
+# Get one book by id
 @app.get("/books/{book_id}")
 def get_book(book_id: int):
     for b in books:
@@ -33,11 +35,13 @@ def get_book(book_id: int):
             return b
     raise HTTPException(status_code=404, detail="Book not found")
 
+# Create new book
 @app.post("/books")
 def create_book(book : Book):
     books.append(book)
     return  {"message": "Book added", "book" : book}
 
+# Update book by id
 @app.put("/books/{book_id}")
 def update_book(book_id: int, updated_book: Book):
     for i,b in enumerate(books):
@@ -46,6 +50,7 @@ def update_book(book_id: int, updated_book: Book):
             return {"message" : "Book updated", "book" : updated_book}
     raise HTTPException(status_code=404, detail="Book not found")
 
+# Delete book by id
 @app.delete("/books/{book_id}")
 def delete_book(book_id: int):
     for i,b in enumerate(books):
