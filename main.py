@@ -94,3 +94,4 @@ def create_book(book : Book):
     books.append(new_book)
 
     return{"message" : "Book created successfully", "Book" : new_book}
+
